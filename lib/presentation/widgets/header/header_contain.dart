@@ -57,13 +57,17 @@ class HeaderBody extends StatelessWidget {
           child: RichText(
             text: TextSpan(
               text: 'Flutter 개발자 ',
-              style: AppTextStyle.highlightDeskTop.copyWith(color: Colors.black),
+              // text: 'Lorem Ipsum',
+              style:
+                  AppTextStyle.highlightDeskTop.copyWith(color: Colors.black),
               children: const [
                 TextSpan(
                   text: '윤준호',
+                  // text:
+                  //     'Neque porro quisquam est qui dolorem',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                TextSpan(text: '입니다.'),
+                // TextSpan(text: '입니다.'),
               ],
             ),
           ),
