@@ -59,3 +59,7 @@ flutter:
           weight: 600
         - asset: assets/fonts/pretendard/Pretendard-Bold.otf
           weight: 800
+    - family: ria
+      fonts:
+        - asset: assets/fonts/ria/RiaSans-ExtraBold.otf
+          weight: 800

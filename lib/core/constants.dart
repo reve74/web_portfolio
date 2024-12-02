@@ -6,6 +6,14 @@ class Constants {
 
   static const githubUrl = 'https://github.com/reve74';
 
+  static const mypeachAppStoreUrl =
+      'https://apps.apple.com/kr/app/%EB%A7%88%EC%9D%B4%ED%94%BC%EC%B9%98/id6479600854';
+  static const mypeachPlayStoreUrl =
+      'https://play.google.com/store/apps/details?id=com.apartmentary.mypeach';
+
+  static const vrinPlayStoreUrl =
+      'https://play.google.com/store/apps/details?id=com.rebuilderAI.rebuilderAI&hl=en_ZA&gl=US';
+
   static const int charLimitCardDesc = 180;
 
   static const double halfScreenWidth = 700.0;
@@ -24,6 +32,7 @@ class Constants {
   static const double aboutTabletRightPadding = 20.0;
 
   // Icon sizes
+  static const double faIconSizeLarge = 30.0;
   static const double faIconSizeRegular = 20.0;
   static const double faIconSizeCard = 12.0;
   static const double faIconSizeCardHeader = 16.0;

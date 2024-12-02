@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 
 abstract class AppTextStyle {
+  static TextStyle riaStyle(double size, double? height) => TextStyle(
+    fontFamily: 'ria',
+    leadingDistribution: TextLeadingDistribution.even,
+    letterSpacing: -0.02 / 100 * size,
+    fontSize: size,
+    height: height == null ? null : height / size,
+    fontWeight: FontWeight.w800,
+  );
+
+
   static TextStyle pretendardStyle(double size, double? height) => TextStyle(
         fontFamily: 'pretendard',
         leadingDistribution: TextLeadingDistribution.even,
@@ -25,7 +35,8 @@ abstract class AppTextStyle {
       );
 
   static final TextStyle highlight = pretendardBoldStyle(32, 36);
-  static final TextStyle headline1 = pretendardBoldStyle(24, 33);
+  static final TextStyle headline1Bold = pretendardBoldStyle(24, 33);
+  static final TextStyle headline1SemiBold = pretendardSemiBoldStyle(24, 33);
   static final TextStyle headline2 = pretendardBoldStyle(20, 27);
   static final TextStyle headline3 = pretendardSemiBoldStyle(18, 24);
   static final TextStyle title1 = pretendardBoldStyle(16, 22);
@@ -38,5 +49,8 @@ abstract class AppTextStyle {
   static final TextStyle alert2 = pretendardStyle(12, 17);
 
 
-  static final TextStyle highlightDeskTop = pretendardMediumStyle(50, 56);
+  static final TextStyle highlightDeskTop = pretendardBoldStyle(50, 56);
+  static final TextStyle riaHighlightDeskTop = riaStyle(50, 56);
+  static final TextStyle riaHeadline1DeskTop = riaStyle(40, 44);
+  static final TextStyle title1DeskTop = pretendardBoldStyle(30, 36);
 }
