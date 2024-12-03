@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/responsive/responsive.dart';
 import 'header.dart';
-import 'header_contain.dart';
 
 class HeaderSection extends StatelessWidget {
   const HeaderSection({super.key});
@@ -19,7 +17,7 @@ class HeaderSection extends StatelessWidget {
               const Header(),
               // Responsive.isDesktop(context) ?
               // const HeaderContain()
-                  // : const MobileHeaderContain(),
+              // : const MobileHeaderContain(),
             ],
           ),
         )

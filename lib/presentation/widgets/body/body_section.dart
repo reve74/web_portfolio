@@ -1,35 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:web_portfolio/presentation/widgets/body/components/career_card.dart';
+import 'package:web_portfolio/presentation/widgets/body/components/project_section.dart';
 
 import '../../../app/style/app_text_style.dart';
 import '../../../core/constants.dart';
+import 'components/career_section.dart';
+import 'widgets/title_widget.dart';
 
 enum StoreName { appStore, playStore }
+
+final GlobalKey profileKey = GlobalKey();
+final GlobalKey careerKey = GlobalKey();
+final GlobalKey projectKey = GlobalKey();
 
 class BodySection extends StatelessWidget {
   const BodySection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.5,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Gap(200),
-            _profile(),
-            const Gap(200),
-            _career(),
-            const Gap(500),
-          ],
-        ),
-      ),
+    return ScreenTypeLayout.builder(
+      desktop: (_) => _body(),
+      tablet: (_) => _body(),
+      mobile: (_) => _body(),
     );
+  }
+
+  Widget _body() {
+
+
+    return Builder(builder: (context) {
+      return Align(
+        alignment: Alignment.center,
+        child: SizedBox(
+          width: 1000,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Gap(200),
+              Container(key: profileKey, child: _profile()),
+              const Gap(200),
+              Container(key: careerKey, child: const CareerSection()),
+              const Gap(200),
+              Container(key: projectKey, child: const ProjectSection()),
+              const Gap(500),
+            ],
+          ),
+        ),
+      );
+    });
   }
 
   Widget _profile() {
@@ -37,11 +58,7 @@ class BodySection extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'About Me',
-            style: AppTextStyle.highlightDeskTop
-                .copyWith(color: Colors.grey.shade700),
-          ),
+          const TitleWidget('About Me'),
           const Gap(30),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -89,56 +106,6 @@ class BodySection extends StatelessWidget {
         ],
       );
     });
-  }
-
-  Widget _career() {
-    return Align(
-      alignment: Alignment.center,
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Career',
-              style: AppTextStyle.highlightDeskTop
-                  .copyWith(color: Colors.grey.shade700),
-            ),
-            const Gap(30),
-            CareerCard(
-              company: '아파트멘터리 – (2024.04 - 2024. 09)',
-              title: '• 마이피치 앱 개발 및 유지보수',
-              subtitle: '- 아파트멘터리의 현장 상담과 시공과정을 데이터화 한 앱 개발 및 운영',
-              details: '• riverpod 클린 아키텍쳐 사용\n'
-                  '• riverpod 을 사용해 의존성 주입\n'
-                  '• 센드버드 sdk를 사용해 채팅 구현\n'
-                  '• Github actions 를 이용한 ci/cd 구축\n'
-                  '• flavor를 이용한 개발/프로덕션 앱 분리\n'
-                  '• 데이터 분석을 위해 amplitude sdk 사용\n'
-                  '• 디자인 시스템을 적용해 위젯 컴포넌트 모듈화 진행\n',
-              appStoreUrl: Constants.mypeachAppStoreUrl,
-              playStoreUrl: Constants.mypeachPlayStoreUrl,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Container(
-                height: 1,
-                color: Colors.grey.shade300,
-              ),
-            ),
-            CareerCard(
-              company: '리빌더에이아이 – (2022.11 - 2023.12)',
-              title: '• VRIN-3D 월드 앱  개발 및 유지보수',
-              subtitle: '- 3D 모델 생성 앱 개발',
-              details: '• 메소드 채널 및 이벤트 채널로 iOS 카메라 통신 연결\n'
-                  '• riverpod 상태관리 사용\n'
-                  '• mvvm 아키텍쳐 사용\n'
-                  '• Github actions 를 - 애플 및 구글 스토어에서 테스트 결제 구현\n',
-              playStoreUrl: Constants.vrinPlayStoreUrl,
-            )
-          ],
-        ),
-      ),
-    );
   }
 
   Widget contactIcon({

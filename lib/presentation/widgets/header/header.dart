@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-import 'package:web_portfolio/presentation/widgets/body/body_section.dart';
 
 import '../../../app/style/app_text_style.dart';
-import '../../../core/constants.dart';
+import '../body/body_section.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key});
@@ -30,19 +27,18 @@ class Header extends StatelessWidget {
             style:
                 AppTextStyle.riaHighlightDeskTop.copyWith(color: Colors.black),
           ),
-          const Gap(10),
+          const Gap(20),
           Text(
             'Junho',
             style:
                 AppTextStyle.riaHighlightDeskTop.copyWith(color: Colors.black),
           ),
-          const Gap(10),
+          const Gap(20),
           Text(
             'Flutter Developer.',
             style:
                 AppTextStyle.riaHeadline1DeskTop.copyWith(color: Colors.black),
           ),
-          BodySection(),
         ],
       ),
     );

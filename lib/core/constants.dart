@@ -14,6 +14,9 @@ class Constants {
   static const vrinPlayStoreUrl =
       'https://play.google.com/store/apps/details?id=com.rebuilderAI.rebuilderAI&hl=en_ZA&gl=US';
 
+  static const mypeachIconPath = 'assets/images/mypeach_icon.png';
+  static const vrinIconPath = 'assets/images/vrin_icon.png';
+
   static const int charLimitCardDesc = 180;
 
   static const double halfScreenWidth = 700.0;
