@@ -1,1 +1,0 @@
-enum StoreName { appStore, playStore }
