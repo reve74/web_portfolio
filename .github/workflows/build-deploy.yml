@@ -21,9 +21,11 @@ jobs:
           channel: stable
           flutter-version: 3.22.1
 
-      # 3
-      - name: Build web
-        run: flutter build web --base-href "/${{ github.event.repository.name }}/"
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build Web
+        run: flutter build web --release
 
       # 4
       - name: Deploy to github pages
