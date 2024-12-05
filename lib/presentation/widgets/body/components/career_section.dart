@@ -4,11 +4,14 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../app/style/app_text_style.dart';
 import '../../../../core/constants.dart';
-import '../body_section.dart';
+import '../../../../core/enums/screen_type_enum.dart';
+import '../../../../core/enums/store_name_enum.dart';
 import '../widgets/title_widget.dart';
 
 class CareerSection extends StatelessWidget {
-  const CareerSection({super.key});
+  final ScreenType type;
+
+  const CareerSection(this.type, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +20,10 @@ class CareerSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const TitleWidget('Career'),
+          TitleWidget(title: 'Career', type: type),
           const Gap(30),
-          const CareerCard(
+          CareerCard(
+            type: type,
             company: '아파트멘터리 – (2024.04 - 2024. 09)',
             title: '• 마이피치 앱 개발 및 유지보수',
             subtitle: '- 아파트멘터리의 현장 상담과 시공과정을 데이터화 한 앱 개발 및 운영',
@@ -41,7 +45,8 @@ class CareerSection extends StatelessWidget {
               color: Colors.grey.shade300,
             ),
           ),
-          const CareerCard(
+          CareerCard(
+            type: type,
             company: '리빌더에이아이 – (2022.11 - 2023.12)',
             title: '• VRIN-3D 월드 앱  개발 및 유지보수',
             subtitle: '- 3D 모델 생성 앱 개발',
@@ -66,6 +71,7 @@ class CareerCard extends StatelessWidget {
   final String iconName;
   final String? appStoreUrl;
   final String? playStoreUrl;
+  final ScreenType type;
 
   const CareerCard({
     required this.company,
@@ -73,6 +79,7 @@ class CareerCard extends StatelessWidget {
     required this.subtitle,
     required this.details,
     required this.iconName,
+    required this.type,
     this.appStoreUrl,
     this.playStoreUrl,
     super.key,
@@ -80,58 +87,81 @@ class CareerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle companyTextStyle;
+    final TextStyle titleTextStyle;
+
+    if (type == ScreenType.desktop) {
+      companyTextStyle = AppTextStyle.headline1BoldDeskTop.copyWith(
+        color: Colors.grey.shade900,
+      );
+    } else {
+      companyTextStyle = AppTextStyle.headline1BoldMobile.copyWith(
+        color: Colors.grey.shade900,
+      );
+    }
+
+    if (type == ScreenType.desktop) {
+      titleTextStyle = AppTextStyle.headline2DeskTop.copyWith(
+        color: Colors.black,
+      );
+    } else {
+      titleTextStyle = AppTextStyle.headline2Mobile.copyWith(
+        color: Colors.black,
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           company,
-          style: AppTextStyle.headline1Bold.copyWith(
-            color: Colors.grey.shade900,
-          ),
+          style: companyTextStyle,
         ),
         const Gap(20),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              width: 80,
+              width: type == ScreenType.mobile ? 60 : 80,
               child: Image.asset(iconName),
             ),
-            const Gap(30),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: AppTextStyle.headline2.copyWith(color: Colors.black),
-                ),
-                Text(
-                  subtitle,
-                  style: AppTextStyle.headline2.copyWith(color: Colors.black),
-                ),
-                Row(
-                  children: [
-                    if (appStoreUrl != null)
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: storeLinkButton(
-                          store: StoreName.appStore,
-                          storeUrl: Constants.mypeachAppStoreUrl,
+            Gap(type == ScreenType.mobile ? 15 : 30),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: titleTextStyle,
+                  ),
+                  Text(
+                    subtitle,
+                    style: titleTextStyle,
+                  ),
+                  Row(
+                    children: [
+                      if (appStoreUrl != null)
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: storeLinkButton(
+                            store: StoreName.appStore,
+                            storeUrl: Constants.mypeachAppStoreUrl,
+                          ),
                         ),
-                      ),
-                    if (playStoreUrl != null)
-                      storeLinkButton(
-                        store: StoreName.playStore,
-                        storeUrl: Constants.mypeachPlayStoreUrl,
-                      ),
-                  ],
-                ),
-                const Gap(20),
-                Text(
-                  details,
-                  style: AppTextStyle.headline3.copyWith(color: Colors.black),
-                ),
-              ],
+                      if (playStoreUrl != null)
+                        storeLinkButton(
+                          store: StoreName.playStore,
+                          storeUrl: Constants.mypeachPlayStoreUrl,
+                        ),
+                    ],
+                  ),
+                  const Gap(20),
+                  Text(
+                    details,
+                    style: AppTextStyle.headline3.copyWith(color: Colors.black),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

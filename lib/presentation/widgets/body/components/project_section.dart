@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:web_portfolio/app/style/app_text_style.dart';
 
+import '../../../../core/enums/screen_type_enum.dart';
 import '../../../../data/project_model.dart';
 import '../widgets/title_widget.dart';
 
 class ProjectSection extends StatelessWidget {
-  const ProjectSection({super.key});
+  final ScreenType type;
+
+  const ProjectSection(this.type, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +39,16 @@ class ProjectSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TitleWidget('Projects'),
+        TitleWidget(title: 'Projects', type: type),
         const Gap(30),
         GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 1.5,
+            crossAxisSpacing: type == ScreenType.mobile ? 5 : 10,
+            mainAxisSpacing: type == ScreenType.mobile ? 5 : 10,
+            childAspectRatio:  type == ScreenType.mobile ? 1.3 : 1.5,
           ),
           itemCount: projects.length,
           itemBuilder: (context, index) {
@@ -53,11 +56,8 @@ class ProjectSection extends StatelessWidget {
               title: projects[index].title,
               imagePath: projects[index].imagePath,
               subtitle: projects[index].subtitle,
+              type: type,
             );
-            // return SizedBox(
-            //   height: 300,
-            //   child: _projectCard(title: '너랑 나 - 커플 디데이'),
-            // );
           },
         ),
       ],
@@ -68,7 +68,21 @@ class ProjectSection extends StatelessWidget {
     required String title,
     required String imagePath,
     required String subtitle,
+    required ScreenType type,
   }) {
+    final TextStyle titleTextStyle;
+    final TextStyle subTitleTextStyle;
+
+    if (type == ScreenType.desktop) {
+      titleTextStyle = AppTextStyle.title2DeskTop.copyWith(color: Colors.white);
+      subTitleTextStyle =
+          AppTextStyle.body2DeskTop.copyWith(color: Colors.white);
+    } else {
+      titleTextStyle = AppTextStyle.title2Mobile.copyWith(color: Colors.white);
+      subTitleTextStyle =
+          AppTextStyle.body2Mobile.copyWith(color: Colors.white);
+    }
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -85,10 +99,9 @@ class ProjectSection extends StatelessWidget {
               topRight: Radius.circular(9),
             ),
             child: Image.asset(
-              // 'assets/images/uandi.png',
               imagePath,
-              height: 200,
-              width: 500,
+              height: type == ScreenType.mobile ? 100 : 200,
+              width: type == ScreenType.mobile ? 250 : 500,
               fit: BoxFit.cover,
             ),
           ),
@@ -100,12 +113,12 @@ class ProjectSection extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: AppTextStyle.title2.copyWith(color: Colors.white),
+                  style: titleTextStyle,
                 ),
                 const Gap(5),
                 Text(
                   subtitle,
-                  style: AppTextStyle.body2.copyWith(color: Colors.white),
+                  style: subTitleTextStyle,
                 )
               ],
             ),

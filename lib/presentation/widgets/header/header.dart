@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:web_portfolio/core/enums/screen_type_enum.dart';
 
 import '../../../app/style/app_text_style.dart';
-import '../body/body_section.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key});
@@ -11,33 +11,58 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      desktop: (_) => desktopHeader(),
-      mobile: (_) => desktopHeader(),
-      tablet: (_) => desktopHeader(),
+      desktop: (_) => desktopHeader(ScreenType.desktop),
+      tablet: (_) => desktopHeader(ScreenType.desktop),
+      mobile: (_) => desktopHeader(ScreenType.mobile),
     );
   }
 
-  Widget desktopHeader() {
+  Widget desktopHeader(ScreenType type) {
+    final TextStyle titleText1;
+    final TextStyle titleText2;
+
+    switch (type) {
+      case ScreenType.desktop:
+        titleText1 =
+            AppTextStyle.riaHighlightDeskTop.copyWith(color: Colors.black);
+        break;
+      case ScreenType.mobile:
+        titleText1 =
+            AppTextStyle.riaHighlightMobile.copyWith(color: Colors.black);
+        break;
+      default:
+        titleText1 =
+            AppTextStyle.riaHighlightDeskTop.copyWith(color: Colors.black);
+    }
+
+    switch (type) {
+      case ScreenType.desktop:
+        titleText2 =
+            AppTextStyle.riaHeadline1DeskTop.copyWith(color: Colors.black);
+        break;
+      case ScreenType.mobile:
+        titleText2 =
+            AppTextStyle.riaHeadline1Mobile.copyWith(color: Colors.black);
+        break;
+      default:
+        titleText2 =
+            AppTextStyle.riaHeadline1DeskTop.copyWith(color: Colors.black);
+    }
+
     return SizedBox(
       child: Column(
         children: [
           const Gap(80),
           Text(
             'Hello, I\'m',
-            style:
-                AppTextStyle.riaHighlightDeskTop.copyWith(color: Colors.black),
+            style: titleText1,
           ),
           const Gap(20),
-          Text(
-            'Junho',
-            style:
-                AppTextStyle.riaHighlightDeskTop.copyWith(color: Colors.black),
-          ),
+          Text('Junho', style: titleText1),
           const Gap(20),
           Text(
             'Flutter Developer.',
-            style:
-                AppTextStyle.riaHeadline1DeskTop.copyWith(color: Colors.black),
+            style: titleText2,
           ),
         ],
       ),

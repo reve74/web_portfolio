@@ -11,13 +11,9 @@ class HeaderSection extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.all(10),
-          // constraints: const BoxConstraints(maxWidth: 1233),
           child: Column(
             children: [
               const Header(),
-              // Responsive.isDesktop(context) ?
-              // const HeaderContain()
-              // : const MobileHeaderContain(),
             ],
           ),
         )

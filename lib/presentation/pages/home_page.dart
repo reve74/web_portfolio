@@ -3,6 +3,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:web_portfolio/app/style/app_text_style.dart';
 import 'package:web_portfolio/presentation/widgets/body/body_section.dart';
 
+import '../../core/enums/screen_type_enum.dart';
 import '../widgets/header/header_section.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,13 +13,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: ScreenTypeLayout.builder(
-      desktop: (_) => _desktopLayout(),
-      tablet: (_) => _desktopLayout(),
+      desktop: (_) => _desktopLayout(ScreenType.desktop),
+      tablet: (_) => _desktopLayout(ScreenType.mobile),
       mobile: (_) => _mobileLayout(),
     ));
   }
 
-  Widget _desktopLayout() {
+  Widget _desktopLayout(ScreenType type) {
     return Stack(
       children: [
         const Positioned.fill(
@@ -28,61 +29,64 @@ class HomePage extends StatelessWidget {
               child: Column(
                 children: [
                   HeaderSection(),
-                  BodySection(),
+                  BodySection(ScreenType.desktop),
                 ],
               ),
             ),
           ),
         ),
-        Positioned(
-          top: 50,
-          left: 100,
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _navigationButton(
-                  title: 'About Me',
-                  onPressed: () {
-                    Scrollable.ensureVisible(
-                      profileKey.currentContext!,
-                      duration: Duration(seconds: 1),
-                    );
-                  },
-                ),
-                _navigationButton(
-                  title: 'Career',
-                  onPressed: () {
-                    Scrollable.ensureVisible(
-                      careerKey.currentContext!,
-                      duration: Duration(seconds: 1),
-                    );
-                  },
-                ),
-                _navigationButton(
-                  title: 'Projects',
-                  onPressed: () {
-                    Scrollable.ensureVisible(
-                      projectKey.currentContext!,
-                      duration: Duration(seconds: 1),
-                    );
-                  },
-                ),
-              ],
+        if (type == ScreenType.desktop)
+          Positioned(
+            top: 50,
+            left: 80,
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _navigationButton(
+                    title: 'About Me',
+                    onPressed: () {
+                      Scrollable.ensureVisible(
+                        profileKey.currentContext!,
+                        duration: const Duration(seconds: 1),
+                      );
+                    },
+                  ),
+                  _navigationButton(
+                    title: 'Career',
+                    onPressed: () {
+                      Scrollable.ensureVisible(
+                        careerKey.currentContext!,
+                        duration: const Duration(seconds: 1),
+                      );
+                    },
+                  ),
+                  _navigationButton(
+                    title: 'Projects',
+                    onPressed: () {
+                      Scrollable.ensureVisible(
+                        projectKey.currentContext!,
+                        duration: const Duration(seconds: 1),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-        )
+          )
       ],
     );
   }
 
   Widget _mobileLayout() {
-    return Column(
-      children: [
-        const HeaderSection(),
-        const BodySection(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const HeaderSection(),
+          BodySection(ScreenType.mobile),
+        ],
+      ),
     );
   }
 
