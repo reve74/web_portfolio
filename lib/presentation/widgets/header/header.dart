@@ -51,6 +51,7 @@ class Header extends StatelessWidget {
 
     return SizedBox(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Gap(80),
           Text(
