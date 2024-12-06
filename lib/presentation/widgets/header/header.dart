@@ -64,6 +64,7 @@ class Header extends StatelessWidget {
           Text(
             'Flutter Developer.',
             style: titleText2,
+            textAlign: TextAlign.center,
           ),
         ],
       ),
